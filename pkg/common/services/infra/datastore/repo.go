@@ -6,20 +6,20 @@ import (
 )
 
 type DataStore struct {
-	dbHandler  *gorm.DB
-	Customer   repo.ICustomerRepository
-	Good       repo.IGoodRepository
-	Order      repo.IOrderRepository
-	TableOrder repo.ITableOrderRepository
+	dbHandler            *gorm.DB
+	CustomerRepository   repo.ICustomerRepository
+	GoodRepository       repo.IGoodRepository
+	OrderRepository      repo.IOrderRepository
+	TableOrderRepository repo.ITableOrderRepository
 }
 
 func NewDataStore(dbHandler *gorm.DB) *DataStore {
 	dataStore := DataStore{
-		dbHandler:  dbHandler,
-		Customer:   repo.NewCustomer(dbHandler),
-		Good:       repo.NewGood(dbHandler),
-		Order:      repo.NewOrder(dbHandler),
-		TableOrder: repo.NewTableOrder(dbHandler),
+		dbHandler:            dbHandler,
+		CustomerRepository:   repo.NewCustomer(dbHandler),
+		GoodRepository:       repo.NewGood(dbHandler),
+		OrderRepository:      repo.NewOrder(dbHandler),
+		TableOrderRepository: repo.NewTableOrder(dbHandler),
 	}
 	return &dataStore
 }

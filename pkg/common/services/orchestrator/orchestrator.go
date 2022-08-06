@@ -7,12 +7,20 @@ type Engine struct {
 	Orchestrator *Orchestrator
 }
 type Orchestrator struct {
-	Engine *Engine
+	Engine                 *Engine
+	CustomerOrchestrator   ICustomerOrchestrator
+	GoodOrchestrator       IGoodOrchestrator
+	OrderOrchestrator      IOrderOrchestrator
+	TableOrderOrchestrator ITableOrderOrchestrator
 }
 
 func NewOrchestrator(engine *Engine) *Orchestrator {
 	newOrchestrator := Orchestrator{
-		Engine: engine,
+		Engine:                 engine,
+		CustomerOrchestrator:   NewCustomerOrchestrator(engine),
+		GoodOrchestrator:       NewGoodOrchestrator(engine),
+		OrderOrchestrator:      NewOrderOrchestrator(engine),
+		TableOrderOrchestrator: NewTableOrderOrchestrator(engine),
 	}
 	return &newOrchestrator
 }

@@ -9,6 +9,7 @@ import (
 
 type IOrderRepository interface {
 	Create(ctx context.Context, dbm *models.Order) (*models.Order, error)
+	GetByID(ctx context.Context, id uint) (*models.Order, error)
 }
 type OrderRepository struct {
 	db *gorm.DB
@@ -25,4 +26,9 @@ func (rep *OrderRepository) Create(ctx context.Context, dbm *models.Order) (*mod
 		return nil, err
 	}
 	return dbm, nil
+}
+func (rep *OrderRepository) GetByID(ctx context.Context, id uint) (*models.Order, error) {
+	data := models.Order{}
+	err := rep.db.WithContext(ctx).Unscoped().First(&data, "id = ?", id).Error
+	return &data, err
 }
