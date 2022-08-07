@@ -1,10 +1,13 @@
 package orchestrator
 
-import "Test_Gorm_Fiber_Elastic/pkg/common/services/infra/datastore"
+import (
+	"Test_Gorm_Fiber_Elastic/pkg/common/services/infra/datastore"
+)
 
 type Engine struct {
 	DataStore    *datastore.DataStore
 	Orchestrator *Orchestrator
+	ElasticData  *datastore.DataElastic
 }
 type Orchestrator struct {
 	Engine                 *Engine

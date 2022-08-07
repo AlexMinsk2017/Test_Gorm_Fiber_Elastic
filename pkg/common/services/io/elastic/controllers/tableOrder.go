@@ -11,19 +11,19 @@ import (
 	"strings"
 )
 
-type ECustomerRepository interface {
-	LoadData(ctx context.Context, dbm *web.Customer) error
+type ETableOrderRepository interface {
+	LoadData(ctx context.Context, dbm *web.TableOrder) error
 }
 
-type ElasticCustomerRepository struct {
+type ElasticTableOrderRepository struct {
 	el *elasticsearch.Client
 }
 
-func NewElasticCustomerRepository(el *elasticsearch.Client) ECustomerRepository {
-	return &ElasticCustomerRepository{el: el}
+func NewElasticTableOrderRepository(el *elasticsearch.Client) ETableOrderRepository {
+	return &ElasticTableOrderRepository{el: el}
 }
 
-func (rep ElasticCustomerRepository) LoadData(ctx context.Context, dbm *web.Customer) error {
+func (rep ElasticTableOrderRepository) LoadData(ctx context.Context, dbm *web.TableOrder) error {
 
 	marshalJson, err := json.Marshal(dbm)
 	if err != nil {

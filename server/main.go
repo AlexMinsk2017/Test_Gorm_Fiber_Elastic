@@ -19,18 +19,26 @@ func main() {
 	//postgres
 	client := db.Init(&con)
 	dataStore := datastore.NewDataStore(client)
-	engine := orchestrator.Engine{DataStore: dataStore}
-	engine.Orchestrator = orchestrator.NewOrchestrator(&engine)
 
 	//elastic
-	_, err = elastic.ClientElastic()
+	elasticClient, err := elastic.ClientElastic()
 	if err != nil {
 		log.Fatalln(err)
 		return
 	}
+	elasticDataStore := datastore.NewElasticDataStore(elasticClient)
+
+	//engine
+	engine := orchestrator.Engine{
+		DataStore:   dataStore,
+		ElasticData: elasticDataStore,
+	}
+	engine.Orchestrator = orchestrator.NewOrchestrator(&engine)
 
 	//webservice
-	server := &web.WebServices{Orchestrator: engine.Orchestrator}
+	server := &web.WebServices{
+		Orchestrator: engine.Orchestrator,
+	}
 	err = server.Run()
 	if err != nil {
 		log.Fatalln(err)

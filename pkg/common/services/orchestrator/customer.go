@@ -34,5 +34,6 @@ func (or CustomerOrchestrator) Create(ctx context.Context, body *web.Customer) (
 	if err != nil {
 		return nil, err
 	}
+
 	return customer, nil
 }

@@ -11,19 +11,19 @@ import (
 	"strings"
 )
 
-type ECustomerRepository interface {
-	LoadData(ctx context.Context, dbm *web.Customer) error
+type EGoodRepository interface {
+	LoadData(ctx context.Context, dbm *web.Good) error
 }
 
-type ElasticCustomerRepository struct {
+type ElasticGoodRepository struct {
 	el *elasticsearch.Client
 }
 
-func NewElasticCustomerRepository(el *elasticsearch.Client) ECustomerRepository {
-	return &ElasticCustomerRepository{el: el}
+func NewElasticGoodRepository(el *elasticsearch.Client) EGoodRepository {
+	return &ElasticGoodRepository{el: el}
 }
 
-func (rep ElasticCustomerRepository) LoadData(ctx context.Context, dbm *web.Customer) error {
+func (rep ElasticGoodRepository) LoadData(ctx context.Context, dbm *web.Good) error {
 
 	marshalJson, err := json.Marshal(dbm)
 	if err != nil {
