@@ -25,6 +25,10 @@ func NewCustomer(db *gorm.DB) ICustomerRepository {
 	return &CustomerRepository{db: db}
 }
 
+func (rep *CustomerRepository) WithTx(tx *gorm.DB) ICustomerRepository {
+	return NewCustomer(tx)
+}
+
 func (rep *CustomerRepository) Create(ctx context.Context, dbm *models.Customer) (*models.Customer, error) {
 	tx := rep.db.Begin()
 	err := tx.WithContext(ctx).Create(dbm).Error
@@ -87,9 +91,6 @@ func (rep *CustomerRepository) Update(ctx context.Context, dbm *models.Customer)
 	}
 	tx.Commit()
 	return dbm, nil
-}
-func (rep *CustomerRepository) WithTx(tx *gorm.DB) ICustomerRepository {
-	return NewCustomer(tx)
 }
 func (rep *CustomerRepository) SelectMaxID(ctx context.Context) (uint, error) {
 
