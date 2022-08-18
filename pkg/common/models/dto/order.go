@@ -10,4 +10,5 @@ type Order struct {
 	Date          *time.Time
 	CustomerRefer uint
 	Comment       string
+	DeletedMark   bool
 }

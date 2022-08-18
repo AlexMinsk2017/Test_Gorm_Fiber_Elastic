@@ -14,6 +14,7 @@ type OrderController struct {
 func (cc *OrderController) Init(router fiber.Router) {
 	router.Get("orders/get_by_id", cc.GetByID)
 	router.Post("orders/create", cc.Create)
+	router.Post("orders/delete", cc.DeleteMark)
 }
 
 func (cc *OrderController) GetByID(ctx *fiber.Ctx) error {
@@ -39,4 +40,16 @@ func (cc *OrderController) Create(ctx *fiber.Ctx) error {
 		return err
 	}
 	return ctx.JSON(Order)
+}
+func (cc *OrderController) DeleteMark(ctx *fiber.Ctx) error {
+	id_str := ctx.Query("Id")
+	id, err := strconv.Atoi(id_str)
+	if err != nil {
+		return err
+	}
+	err = cc.UseCases.OrderOrchestrator.DeleteMark(ctx.Context(), uint(id))
+	if err != nil {
+		return err
+	}
+	return nil
 }

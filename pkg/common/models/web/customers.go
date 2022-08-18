@@ -3,9 +3,10 @@ package web
 import "Test_Gorm_Fiber_Elastic/pkg/common/models/dto"
 
 type Customer struct {
-	Id      uint
-	Name    string
-	Comment string
+	Id          uint
+	Name        string
+	Comment     string
+	DeletedMark bool
 }
 
 type Customers []*Customer

@@ -14,6 +14,7 @@ type GoodController struct {
 func (cc *GoodController) Init(router fiber.Router) {
 	router.Get("goods/get_by_id", cc.GetByID)
 	router.Post("goods/create", cc.Create)
+	router.Post("goods/delete", cc.DeleteMark)
 }
 
 func (cc *GoodController) GetByID(ctx *fiber.Ctx) error {
@@ -39,4 +40,16 @@ func (cc *GoodController) Create(ctx *fiber.Ctx) error {
 		return err
 	}
 	return ctx.JSON(Good)
+}
+func (cc *GoodController) DeleteMark(ctx *fiber.Ctx) error {
+	id_str := ctx.Query("Id")
+	id, err := strconv.Atoi(id_str)
+	if err != nil {
+		return err
+	}
+	err = cc.UseCases.GoodOrchestrator.DeleteMark(ctx.Context(), uint(id))
+	if err != nil {
+		return err
+	}
+	return nil
 }

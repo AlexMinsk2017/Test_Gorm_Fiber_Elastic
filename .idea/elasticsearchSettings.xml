@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ElasticsearchConfiguration">
+    <option name="clusterConfigurations">
+      <map>
+        <entry key="b8983935-8e0c-4c6e-b55b-117e460a8626">
+          <value>
+            <P>
+              <option name="authConfigInternal">
+                <N>
+                  <option name="authType" value="Basic Auth" />
+                </N>
+              </option>
+              <option name="credentialsStored" value="true" />
+              <option name="id" value="b8983935-8e0c-4c6e-b55b-117e460a8626" />
+              <option name="label" value="@localhost" />
+              <option name="url" value="http://localhost:9200" />
+            </P>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="requestHistory">
+      <map>
+        <entry key="b8983935-8e0c-4c6e-b55b-117e460a8626" value="W3sicGF0aCI6Ii9pZGN1c3RvbWVyL19zZWFyY2giLCJib2R5Ijoie1xuICBcImZyb21cIjogMCxcbiAgXCJzaXplXCI6IDIwLFxuICBcInF1ZXJ5XCI6IHtcbiAgICBcIm1hdGNoX2FsbFwiOiB7fVxuICB9XG59IiwibWV0aG9kIjoiR0VUIn1d" />
+      </map>
+    </option>
+  </component>
+</project>

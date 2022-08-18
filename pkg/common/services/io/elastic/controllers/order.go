@@ -1,18 +1,18 @@
 package controllers
 
 import (
-	"Test_Gorm_Fiber_Elastic/pkg/common/models/web"
+	"Test_Gorm_Fiber_Elastic/pkg/common/models/dto"
 	"context"
 	"encoding/json"
-	"fmt"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"log"
+	"strconv"
 	"strings"
 )
 
 type EOrderRepository interface {
-	LoadData(ctx context.Context, dbm *web.Order) error
+	LoadData(ctx context.Context, dbm *dto.Order) error
 }
 
 type ElasticOrderRepository struct {
@@ -23,17 +23,17 @@ func NewElasticOrderRepository(el *elasticsearch.Client) EOrderRepository {
 	return &ElasticOrderRepository{el: el}
 }
 
-func (rep ElasticOrderRepository) LoadData(ctx context.Context, dbm *web.Order) error {
+func (rep ElasticOrderRepository) LoadData(ctx context.Context, dbm *dto.Order) error {
 
 	marshalJson, err := json.Marshal(dbm)
 	if err != nil {
 		log.Print(err)
 		return err
 	}
-
+	documentID := strconv.FormatUint(uint64(dbm.Id), 10)
 	request := esapi.IndexRequest{
-		Index:      "ID",
-		DocumentID: fmt.Sprintf("%d", dbm.Id),
+		Index:      "idorder",
+		DocumentID: documentID,
 		Body:       strings.NewReader(string(marshalJson)),
 	}
 	_, err = request.Do(ctx, rep.el)

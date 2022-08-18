@@ -18,14 +18,14 @@ func NewTableOrderOrchestrator(engine *Engine) ITableOrderOrchestrator {
 	return &TableOrderOrchestrator{engine}
 }
 
-func (or TableOrderOrchestrator) GetByID(ctx context.Context, id uint) (*models.TableOrder, error) {
+func (or *TableOrderOrchestrator) GetByID(ctx context.Context, id uint) (*models.TableOrder, error) {
 	dataSet, err := or.Engine.DataStore.TableOrderRepository.GetByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
 	return dataSet, nil
 }
-func (or TableOrderOrchestrator) Create(ctx context.Context, body *web.TableOrder) (*models.TableOrder, error) {
+func (or *TableOrderOrchestrator) Create(ctx context.Context, body *web.TableOrder) (*models.TableOrder, error) {
 	model := &models.TableOrder{
 		OrderRefer: body.OrderRefer,
 		GoodRefer:  body.GoodRefer,

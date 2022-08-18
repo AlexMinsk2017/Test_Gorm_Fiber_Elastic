@@ -3,10 +3,11 @@ package web
 import "Test_Gorm_Fiber_Elastic/pkg/common/models/dto"
 
 type Good struct {
-	Id      uint
-	Name    string
-	Comment string
-	Price   float32
+	Id          uint
+	Name        string
+	Comment     string
+	Price       float32
+	DeletedMark bool
 }
 
 type Goods []*Good

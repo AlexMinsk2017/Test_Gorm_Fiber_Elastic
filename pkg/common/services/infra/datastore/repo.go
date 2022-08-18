@@ -23,3 +23,7 @@ func NewDataStore(dbHandler *gorm.DB) *DataStore {
 	}
 	return &dataStore
 }
+
+func (ds *DataStore) WithTransaction(fn func(tx *gorm.DB) error) error {
+	return ds.dbHandler.Transaction(fn)
+}

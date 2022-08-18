@@ -10,6 +10,8 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
+      - xpack.security.enrollment.enabled=true
+      # - ELASTIC_PASSWORD=25061971
     ulimits:
       memlock:
         soft: -1
@@ -28,6 +30,7 @@ services:
       - es01
     environment:
       ELASTICSEARCH_URL: http://es01:9200
+      # KIBANA_SYSTEM_PASSWORD: 25061971
     links:
       - es01
     ports:
