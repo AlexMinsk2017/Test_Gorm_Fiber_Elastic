@@ -14,6 +14,7 @@ type CustomerController struct {
 func (cc *CustomerController) Init(router fiber.Router) {
 	router.Get("customers/get_by_id", cc.GetByID)
 	router.Get("customers/update_elastic", cc.LoadElastic)
+	router.Get("customers/find_name", cc.Search)
 	router.Post("customers/create", cc.Create)
 	router.Post("customers/delete", cc.DeleteMark)
 }
@@ -60,4 +61,12 @@ func (cc *CustomerController) LoadElastic(ctx *fiber.Ctx) error {
 		return err
 	}
 	return nil
+}
+func (cc *CustomerController) Search(ctx *fiber.Ctx) error {
+	value := ctx.Query("name")
+	response, err := cc.UseCases.CustomerOrchestrator.Search(ctx.Context(), &value)
+	if err != nil {
+		return err
+	}
+	return ctx.JSON(response.Body)
 }

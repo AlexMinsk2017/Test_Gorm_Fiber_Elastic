@@ -5,6 +5,7 @@ import (
 	"Test_Gorm_Fiber_Elastic/pkg/common/models/dto"
 	"Test_Gorm_Fiber_Elastic/pkg/common/models/web"
 	"context"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/gogf/gf/v2/frame/g"
 	"gorm.io/gorm"
 	"log"
@@ -16,6 +17,7 @@ type ICustomerOrchestrator interface {
 	DeleteMark(ctx context.Context, id uint) error
 	Update(ctx context.Context, body *web.Customer) (*models.Customer, error)
 	UpdateElastic(ctx context.Context) error
+	Search(ctx context.Context, value *string) (*esapi.Response, error)
 }
 type CustomerOrchestrator struct {
 	Engine *Engine
@@ -124,4 +126,11 @@ func (or *CustomerOrchestrator) UpdateElastic(ctx context.Context) error {
 	}
 
 	return nil
+}
+func (or *CustomerOrchestrator) Search(ctx context.Context, value *string) (*esapi.Response, error) {
+	response, err := or.Engine.ElasticData.CustomerRepository.Search(ctx, value)
+	if err != nil {
+		return nil, err
+	}
+	return response, nil
 }
