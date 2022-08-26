@@ -64,9 +64,9 @@ func (cc *CustomerController) LoadElastic(ctx *fiber.Ctx) error {
 }
 func (cc *CustomerController) Search(ctx *fiber.Ctx) error {
 	value := ctx.Query("name")
-	response, err := cc.UseCases.CustomerOrchestrator.Search(ctx.Context(), &value)
+	response, err := cc.UseCases.CustomerOrchestrator.Search(ctx.Context(), value)
 	if err != nil {
 		return err
 	}
-	return ctx.JSON(response.Body)
+	return ctx.JSON(response)
 }

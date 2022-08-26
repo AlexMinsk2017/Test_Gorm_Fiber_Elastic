@@ -26,6 +26,8 @@ func (ws *WebServices) Run() error {
 		return c.SendString("Hello, World 👋!")
 	})
 
+	///////token авторизация
+
 	//////////////
 	return app.Listen(":3000")
 }
