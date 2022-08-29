@@ -11,3 +11,6 @@ docker network create elasticorder
 
 Run Elasticsearch:
 docker run -d --name elasticsearch --net elasticorder -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" alexgrib/elasticsearch8:8.3.3
+
+Сбросить пароль
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
