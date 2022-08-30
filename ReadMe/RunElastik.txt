@@ -11,3 +11,8 @@ docker network create elasticorder
 
 Run Elasticsearch:
 docker run -d --name elasticsearch --net elasticorder -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" alexgrib/elasticsearch8:8.3.3
+
+bin\elasticsearch-create-enrollment-token.bat --scope kibana
+/bin/elasticsearch-create-enrollment-token --scope kibana
+
+docker exec -it es01 bin\elasticsearch-create-enrollment-token.bat --scope kibana
