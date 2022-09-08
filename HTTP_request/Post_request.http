@@ -12,6 +12,15 @@ POST http://127.0.0.1:3000/login
 Content-Type: application/json
 
 {
-  "user": "alex",
-  "pass" : "hryb"
+  "User": "alex",
+  "Pass" : "hryb"
+}
+
+### Send POST request with json body
+POST http://127.0.0.1:3000/api/v1/users/login
+Content-Type: application/json
+
+{
+  "User": "alex",
+  "Pass" : "hryb"
 }

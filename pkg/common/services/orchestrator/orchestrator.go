@@ -15,6 +15,7 @@ type Orchestrator struct {
 	GoodOrchestrator       IGoodOrchestrator
 	OrderOrchestrator      IOrderOrchestrator
 	TableOrderOrchestrator ITableOrderOrchestrator
+	UserOrchestrator       IUserOrchestrator
 }
 
 func NewOrchestrator(engine *Engine) *Orchestrator {
@@ -24,6 +25,7 @@ func NewOrchestrator(engine *Engine) *Orchestrator {
 		GoodOrchestrator:       NewGoodOrchestrator(engine),
 		OrderOrchestrator:      NewOrderOrchestrator(engine),
 		TableOrderOrchestrator: NewTableOrderOrchestrator(engine),
+		UserOrchestrator:       NewUserOrchestrator(engine),
 	}
 	return &newOrchestrator
 }

@@ -14,19 +14,23 @@ type WebServices struct {
 }
 
 type LoginPassword struct {
-	user string
-	pass string
+	User string
+	Pass string
 }
 
 func (ws *WebServices) Run() error {
 
 	app := fiber.New()
 
+	api := app.Group("/api")
+	v1 := api.Group("/v1")
 	///////token авторизация
+	(&controllers.UserController{UseCases: ws.Orchestrator}).Init(v1)
 
 	app.Post("/login", login)
 	// Unauthenticated route
 	app.Get("/", accessible)
+
 	// JWT Middleware
 	app.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte("secret"),
@@ -35,9 +39,6 @@ func (ws *WebServices) Run() error {
 	app.Get("/restricted", restricted)
 
 	//////////////
-
-	api := app.Group("/api")
-	v1 := api.Group("/v1")
 
 	(&controllers.CustomerController{UseCases: ws.Orchestrator}).Init(v1)
 	(&controllers.GoodController{UseCases: ws.Orchestrator}).Init(v1)
@@ -53,19 +54,19 @@ func (ws *WebServices) Run() error {
 }
 
 func login(ctx *fiber.Ctx) error {
-	user := ctx.FormValue("user")
-	pass := ctx.FormValue("pass")
+	//user := ctx.FormValue("User")
+	//pass := ctx.FormValue("Pass")
 
 	//user := ctx.Params("user", "none")
 	//pass := ctx.Params("pass", "none")
 
-	//bodyData := LoginPassword{}
-	//err := ctx.BodyParser(&bodyData)
-	//if err != nil {
-	//	return err
-	//}
-	//user := bodyData.user
-	//pass := bodyData.pass
+	bodyData := LoginPassword{}
+	err := ctx.BodyParser(&bodyData)
+	if err != nil {
+		return err
+	}
+	user := bodyData.User
+	pass := bodyData.Pass
 
 	// Throws Unauthorized error
 	if user != "alex" || pass != "hryb" {
